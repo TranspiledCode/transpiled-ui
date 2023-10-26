@@ -1,16 +1,16 @@
 // ScrollToTop
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faArrowUp } from '@fortawesome/free-solid-svg-icons';
 import { useTheme } from './ThemeProvider';
 import styled, { keyframes } from 'styled-components';
 
 const ScrollToTop = () => {
-  // Access the theme from the ThemeProvider context
   const { theme } = useTheme();
-
-  // State to track whether the scroll-to-top button should be visible
   const [isVisible, setIsVisible] = useState(false);
+
+  // Create a ref for the top-anchor element
+  const topAnchorRef = useRef(null);
 
   // Create an IntersectionObserver to detect when the top-anchor element is in the viewport
   const observer = new IntersectionObserver(
@@ -18,23 +18,20 @@ const ScrollToTop = () => {
       setIsVisible(entry.isIntersecting);
     },
     {
-      rootMargin: '0px 0px -100% 0px', // Trigger when the top-anchor is 100% out of the viewport
+      rootMargin: '0px 0px -100% 0px',
     }
   );
 
-  // Effect hook to observe the top-anchor element
   useEffect(() => {
-    const target = document.getElementById('top-anchor');
-    if (target) {
-      observer.observe(target);
+    if (topAnchorRef.current) {
+      observer.observe(topAnchorRef.current);
     }
-    // Cleanup: Disconnect the observer when the component unmounts
+
     return () => {
       observer.disconnect();
     };
   }, [observer]);
 
-  // Function to scroll to the top of the page smoothly when the button is clicked
   const scrollToTop = () => {
     window.scrollTo({
       top: 0,
@@ -42,12 +39,10 @@ const ScrollToTop = () => {
     });
   };
 
-  // Render the ScrollToTop component
   return (
     <div>
-      {/* Anchor element used for IntersectionObserver */}
-      <div id='top-anchor' />
-      {/* Render the scroll-to-top button when not visible */}
+      {/* Use the ref for the top-anchor element */}
+      <div ref={topAnchorRef} />
       {!isVisible && (
         <ScrollToTopButton
           aria-label='Scroll to top'
