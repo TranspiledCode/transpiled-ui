@@ -1,13 +1,10 @@
 // ScrollToTop
-
-// Import necessary dependencies and components
 import React, { useEffect, useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faArrowUp } from '@fortawesome/free-solid-svg-icons';
 import { useTheme } from './ThemeProvider';
 import styled, { keyframes } from 'styled-components';
 
-// Define the ScrollToTop component
 const ScrollToTop = () => {
   // Access the theme from the ThemeProvider context
   const { theme } = useTheme();
@@ -49,7 +46,7 @@ const ScrollToTop = () => {
   return (
     <div>
       {/* Anchor element used for IntersectionObserver */}
-      <div id='top-anchor'></div>
+      <div id='top-anchor' />
       {/* Render the scroll-to-top button when not visible */}
       {!isVisible && (
         <ScrollToTopButton
