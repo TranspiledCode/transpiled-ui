@@ -6,7 +6,7 @@ import styled from 'styled-components';
 import useVisibility from './hooks/useVisibility';
 
 const ScrollToTop = ({
-  backgroundColor = '#ff0000',
+  backgroundColor = '#434343',
   iconColor = '#fff',
   hoverBackgroundColor = '#dbdbdb',
   hoverIconColor = '#000',

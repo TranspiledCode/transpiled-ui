@@ -1,4 +1,6 @@
 import ScrollToTop from '../ScrollToTop'; // Adjust the path as needed
+import { ThemeProvider } from '../ThemeProvider';
+import { theme } from '../theme';
 
 export default {
   component: ScrollToTop,
@@ -6,9 +8,13 @@ export default {
   tags: ['autodocs'],
 };
 
-export const Primary = {
+export const Default = {
+  args: {},
+};
+
+export const UserDefined = {
   args: {
-    backgroundColor: '#616161',
+    backgroundColor: '#f6b800',
     iconColor: '#fff',
     hoverBackgroundColor: '#dbdbdb',
     hoverIconColor: '#000',
