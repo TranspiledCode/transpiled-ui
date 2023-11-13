@@ -2,53 +2,37 @@
 import React, { useEffect, useState, useRef } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faArrowUp } from '@fortawesome/free-solid-svg-icons';
-import { useTheme } from './ThemeProvider';
-import styled, { keyframes } from 'styled-components';
+import styled from 'styled-components';
+import useVisibility from './hooks/useVisibility';
 
-const ScrollToTop = () => {
-  const { theme } = useTheme();
-  const [isVisible, setIsVisible] = useState(false);
-
-  // Create a ref for the top-anchor element
+const ScrollToTop = ({
+  backgroundColor = '#ff0000',
+  iconColor = '#fff',
+  hoverBackgroundColor = '#dbdbdb',
+  hoverIconColor = '#000',
+  shadowColor = 'rgba(0, 0, 0, 0.4)',
+}) => {
   const topAnchorRef = useRef(null);
-
-  // Create an IntersectionObserver to detect when the top-anchor element is in the viewport
-  const observer = new IntersectionObserver(
-    ([entry]) => {
-      setIsVisible(entry.isIntersecting);
-    },
-    {
-      rootMargin: '0px 0px -100% 0px',
-    }
-  );
-
-  useEffect(() => {
-    if (topAnchorRef.current) {
-      observer.observe(topAnchorRef.current);
-    }
-
-    return () => {
-      observer.disconnect();
-    };
-  }, [observer]);
+  const isVisible = useVisibility(topAnchorRef);
 
   const scrollToTop = () => {
-    window.scrollTo({
-      top: 0,
-      behavior: 'smooth',
-    });
+    window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
   return (
     <div>
-      {/* Use the ref for the top-anchor element */}
       <div ref={topAnchorRef} />
       {!isVisible && (
         <ScrollToTopButton
           aria-label='Scroll to top'
-          theme={theme}
           onClick={scrollToTop}
           className='scroll-to-top-button'
+          // Pass the color props to styled component
+          backgroundColor={backgroundColor}
+          iconColor={iconColor}
+          hoverBackgroundColor={hoverBackgroundColor}
+          hoverIconColor={hoverIconColor}
+          shadowColor={shadowColor}
         >
           <FontAwesomeIcon icon={faArrowUp} className='icon' />
         </ScrollToTopButton>
@@ -59,7 +43,6 @@ const ScrollToTop = () => {
 
 export default ScrollToTop;
 
-// Styled component for the scroll-to-top button
 const ScrollToTopButton = styled.button`
   position: fixed;
   display: flex;
@@ -69,20 +52,21 @@ const ScrollToTopButton = styled.button`
   right: 20px;
   width: 50px;
   height: 50px;
-  background-color: ${(props) => props.theme.accentColor};
-  color: ${(props) => props.theme.white};
+  background-color: ${({ backgroundColor }) => backgroundColor};
+  color: ${({ iconColor }) => iconColor};
   border: none;
   border-radius: 50%;
   padding: 15px;
-  box-shadow: 0 2px 4px ${(props) => props.theme.shadowColor};
+  box-shadow: 0 2px 4px ${({ shadowColor }) => shadowColor};
   cursor: pointer;
+  z-index: 999;
 
   &:hover {
-    background-color: ${(props) => props.theme.neutralGray};
+    background-color: ${({ hoverBackgroundColor }) => hoverBackgroundColor};
 
     .icon {
       transform: scale(1.2);
-      color: ${(props) => props.theme.primaryColor};
+      color: ${({ hoverIconColor }) => hoverIconColor};
     }
   }
 
