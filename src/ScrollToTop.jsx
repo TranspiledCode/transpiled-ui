@@ -1,12 +1,11 @@
-// ScrollToTop
-import React, { useEffect, useState, useRef } from 'react';
+import React, { useRef } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faArrowUp } from '@fortawesome/free-solid-svg-icons';
 import styled from 'styled-components';
 import useVisibility from './hooks/useVisibility';
 
 const ScrollToTop = ({
-  backgroundColor = '#434343',
+  backgroundColor = '#616161',
   iconColor = '#fff',
   hoverBackgroundColor = '#dbdbdb',
   hoverIconColor = '#000',
@@ -28,11 +27,11 @@ const ScrollToTop = ({
           onClick={scrollToTop}
           className='scroll-to-top-button'
           // Pass the color props to styled component
-          backgroundColor={backgroundColor}
-          iconColor={iconColor}
-          hoverBackgroundColor={hoverBackgroundColor}
-          hoverIconColor={hoverIconColor}
-          shadowColor={shadowColor}
+          $backgroundColor={backgroundColor}
+          $iconColor={iconColor}
+          $hoverBackgroundColor={hoverBackgroundColor}
+          $hoverIconColor={hoverIconColor}
+          $shadowColor={shadowColor}
         >
           <FontAwesomeIcon icon={faArrowUp} className='icon' />
         </ScrollToTopButton>
@@ -44,6 +43,7 @@ const ScrollToTop = ({
 export default ScrollToTop;
 
 const ScrollToTopButton = styled.button`
+  z-index: 999;
   position: fixed;
   display: flex;
   align-items: center;
@@ -52,21 +52,20 @@ const ScrollToTopButton = styled.button`
   right: 20px;
   width: 50px;
   height: 50px;
-  background-color: ${({ backgroundColor }) => backgroundColor};
-  color: ${({ iconColor }) => iconColor};
   border: none;
   border-radius: 50%;
   padding: 15px;
-  box-shadow: 0 2px 4px ${({ shadowColor }) => shadowColor};
   cursor: pointer;
-  z-index: 999;
+  background-color: ${({ $backgroundColor }) => $backgroundColor};
+  color: ${({ $iconColor }) => $iconColor};
+  box-shadow: 0 2px 4px ${({ $shadowColor }) => $shadowColor};
 
   &:hover {
-    background-color: ${({ hoverBackgroundColor }) => hoverBackgroundColor};
+    background-color: ${({ $hoverBackgroundColor }) => $hoverBackgroundColor};
 
     .icon {
       transform: scale(1.2);
-      color: ${({ hoverIconColor }) => hoverIconColor};
+      color: ${({ $hoverIconColor }) => $hoverIconColor};
     }
   }
 
