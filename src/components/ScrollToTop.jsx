@@ -1,8 +1,7 @@
-import React, { useRef } from 'react';
+import React from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faArrowUp } from '@fortawesome/free-solid-svg-icons';
 import styled from 'styled-components';
-import useVisibility from '../hooks/useVisibility';
 
 const ScrollToTop = ({
   backgroundColor = '#616161',
@@ -11,32 +10,24 @@ const ScrollToTop = ({
   hoverIconColor = '#000',
   shadowColor = 'rgba(0, 0, 0, 0.4)',
 }) => {
-  const topAnchorRef = useRef(null);
-  const isVisible = useVisibility(topAnchorRef);
-
   const scrollToTop = () => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
   return (
-    <>
-      <div ref={topAnchorRef} />
-      {!isVisible && (
-        <ScrollToTopButton
-          aria-label='Scroll to top'
-          onClick={scrollToTop}
-          className='scroll-to-top-button'
-          // Pass the color props to styled component
-          $backgroundColor={backgroundColor}
-          $iconColor={iconColor}
-          $hoverBackgroundColor={hoverBackgroundColor}
-          $hoverIconColor={hoverIconColor}
-          $shadowColor={shadowColor}
-        >
-          <FontAwesomeIcon icon={faArrowUp} className='icon' />
-        </ScrollToTopButton>
-      )}
-    </>
+    <ScrollToTopButton
+      aria-label='Scroll to top'
+      onClick={scrollToTop}
+      className='scroll-to-top-button'
+      // Pass the color props to styled component
+      $backgroundColor={backgroundColor}
+      $iconColor={iconColor}
+      $hoverBackgroundColor={hoverBackgroundColor}
+      $hoverIconColor={hoverIconColor}
+      $shadowColor={shadowColor}
+    >
+      <FontAwesomeIcon icon={faArrowUp} className='icon' />
+    </ScrollToTopButton>
   );
 };
 
