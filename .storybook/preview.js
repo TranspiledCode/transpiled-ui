@@ -13,16 +13,15 @@
 
 // export default preview;
 
+// /** @type { import('@storybook/react').Preview } */
 import { ThemeProvider } from '../src/ThemeProvider';
 import { defaultTheme } from '../src/theme';
 
-const withThemeProvider = (Story, context) => {
-  return (
-    <ThemeProvider externalTheme={defaultTheme}>
-      <Story {...context} />
-    </ThemeProvider>
-  );
-};
+const withThemeProvider = (Story, context) => (
+  <ThemeProvider theme={defaultTheme}>
+    <Story {...context} />
+  </ThemeProvider>
+);
 
 const preview = {
   decorators: [withThemeProvider],

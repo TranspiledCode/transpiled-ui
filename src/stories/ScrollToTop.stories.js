@@ -1,5 +1,4 @@
-import ScrollToTop from '../ScrollToTop'; // Adjust the path as needed
-import { ThemeProvider } from '../ThemeProvider';
+import ScrollToTop from '../components/ScrollToTop'; // Adjust the path as needed
 import { theme } from '../theme';
 
 export default {

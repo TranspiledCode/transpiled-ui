@@ -2,7 +2,7 @@ import React, { useRef } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faArrowUp } from '@fortawesome/free-solid-svg-icons';
 import styled from 'styled-components';
-import useVisibility from './hooks/useVisibility';
+import useVisibility from '../hooks/useVisibility';
 
 const ScrollToTop = ({
   backgroundColor = '#616161',
@@ -19,7 +19,7 @@ const ScrollToTop = ({
   };
 
   return (
-    <div>
+    <>
       <div ref={topAnchorRef} />
       {!isVisible && (
         <ScrollToTopButton
@@ -36,7 +36,7 @@ const ScrollToTop = ({
           <FontAwesomeIcon icon={faArrowUp} className='icon' />
         </ScrollToTopButton>
       )}
-    </div>
+    </>
   );
 };
 
