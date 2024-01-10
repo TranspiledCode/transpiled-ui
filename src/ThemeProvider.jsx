@@ -29,7 +29,7 @@ export const ThemeProvider = ({ children, externalTheme }) => {
 
   // Provide the theme and toggleTheme function to the components using ThemeContext
   return (
-    <ThemeContext.Provider value={{ theme, toggleTheme }}>
+    <ThemeContext.Provider value={{ theme, toggleTheme, isDarkTheme }}>
       <EmotionThemeProvider theme={theme}>{children}</EmotionThemeProvider>
     </ThemeContext.Provider>
   );
