@@ -19,7 +19,7 @@ export default {
     id: { control: 'text' },
     placeholder: { control: 'text' },
     name: { control: 'text' },
-    type: { control: 'text' },
+    type: { control: 'select', options: ['text', 'number', 'password'] },
     autocomplete: {
       control: 'select',
       options: [
@@ -34,11 +34,14 @@ export default {
       ],
     },
     size: {
-      control: 'select',
+      control: 'radio',
       options: ['s', 'm', 'l', 'xl'],
     },
     clearable: { control: 'boolean' },
     colors: {
+      control: 'object',
+    },
+    theme: {
       control: 'object',
     },
   },
