@@ -2,6 +2,8 @@ import React, { useState, useRef } from 'react';
 import styled from '@emotion/styled';
 import PropTypes from 'prop-types';
 import Icon from './Icon';
+
+import { inputSizeVariants } from '../config';
 import validateAutocompleteValue from '../utils/autoCompleteValidation';
 
 const defaultColors = {
@@ -9,53 +11,6 @@ const defaultColors = {
   borderFocus: '#1554bb',
   labelColor: '#aaa',
   placeholderColor: '#565656',
-};
-
-const sizeVariants = {
-  // INPUT: the text the user is typing
-  // LABEL: the text that is on top of the input
-  // PLACEHOLDER: the text that is shown in the input field prior to typing
-
-  s: {
-    inputPadding: '4px 8px',
-    inputFontSize: '1rem',
-    labelFontSize: '0.7rem',
-    labelTop: '-0.9rem',
-    labelLeft: '0rem',
-    placeholderFontSize: '0.8rem',
-    placeholderTop: '0.5rem',
-    placeholderLeft: '0.6rem',
-  },
-  m: {
-    inputPadding: '6px 10px',
-    inputFontSize: '1.2rem',
-    labelFontSize: '0.9rem',
-    labelTop: '-1.2rem',
-    labelLeft: '0rem',
-    placeholderFontSize: '1rem',
-    placeholderTop: '0.5rem',
-    placeholderLeft: '0.7rem',
-  },
-  l: {
-    inputPadding: '8px 11px',
-    inputFontSize: '1.4rem',
-    labelFontSize: '1rem',
-    labelTop: '-1.4rem',
-    labelLeft: '0rem',
-    placeholderFontSize: '1.2rem',
-    placeholderTop: '0.7rem',
-    placeholderLeft: '0.7rem',
-  },
-  xl: {
-    inputPadding: '10px 11px',
-    inputFontSize: '1.6rem',
-    labelFontSize: '1.1rem',
-    labelTop: '-1.6rem',
-    labelLeft: '0rem',
-    placeholderFontSize: '1.4rem',
-    placeholderTop: '0.8rem',
-    placeholderLeft: '0.7rem',
-  },
 };
 
 const Container = styled.div`
@@ -82,9 +37,9 @@ const StyledInput = styled.input`
   width: 100%;
   outline: none;
   border: none;
-  padding: ${({ size }) => sizeVariants[size].inputPadding};
+  padding: ${({ size }) => inputSizeVariants[size].inputPadding};
   font-family: inherit;
-  font-size: ${({ size }) => sizeVariants[size].inputFontSize};
+  font-size: ${({ size }) => inputSizeVariants[size].inputFontSize};
   transition: border-color 0.3s, border-left-width 0.3s;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -99,18 +54,18 @@ const StyledInput = styled.input`
 
   &:focus + label,
   &:not(:placeholder-shown) + label {
-    top: ${({ size }) => sizeVariants[size].labelTop};
-    left: ${({ size }) => sizeVariants[size].labelLeft};
-    font-size: ${({ size }) => sizeVariants[size].labelFontSize};
+    top: ${({ size }) => inputSizeVariants[size].labelTop};
+    left: ${({ size }) => inputSizeVariants[size].labelLeft};
+    font-size: ${({ size }) => inputSizeVariants[size].labelFontSize};
     color: ${({ theme }) => theme.labelColor || defaultColors.labelColor};
   }
 `;
 
 const PlaceholderLabel = styled.label`
   position: absolute;
-  top: ${({ size }) => sizeVariants[size].placeholderTop};
-  left: ${({ size }) => sizeVariants[size].placeholderLeft};
-  font-size: ${({ size }) => sizeVariants[size].placeholderFontSize};
+  top: ${({ size }) => inputSizeVariants[size].placeholderTop};
+  left: ${({ size }) => inputSizeVariants[size].placeholderLeft};
+  font-size: ${({ size }) => inputSizeVariants[size].placeholderFontSize};
   color: ${({ theme }) =>
     theme.placeholderColor || defaultColors.placeholderColor};
   transition: all 0.3s;
