@@ -50,12 +50,12 @@ const Container = styled.div`
     border-color: ${({ colors }) => colors.inputBorderFocusColor};
     border-left: ${({ borderStyle, colors }) =>
       borderStyle !== 'bottom'
-        ? `3px solid ${colors.inputBorderFocusColor}`
+        ? `1px solid ${colors.inputBorderFocusColor}`
         : 'none'};
     border-bottom: ${({ borderStyle, colors }) =>
       borderStyle !== 'bottom'
         ? `1px solid ${colors.inputBorderFocusColor}`
-        : `3px solid ${colors.inputBorderFocusColor}`};
+        : `1px solid ${colors.inputBorderFocusColor}`};
   }
 `;
 
@@ -85,6 +85,7 @@ const StyledInput = styled.input`
 
   &:focus + label,
   &:not(:placeholder-shown) + label {
+    display: ${({ fieldLabel }) => (fieldLabel ? 'block' : 'none')};
     top: ${({ borderStyle, size }) =>
       inputSizeVariants[borderStyle][size].labelTop};
     left: ${({ borderStyle, size }) =>
@@ -133,6 +134,7 @@ const Input = ({
   colors = {},
   theme = {},
   borderStyle,
+  fieldLabel = true,
 }) => {
   const inputRef = useRef(null);
   const [value, setValue] = useState('');
@@ -162,6 +164,7 @@ const Input = ({
         value={value}
         colors={inputColors}
         borderStyle={borderStyle}
+        fieldLabel={fieldLabel}
       />
       <PlaceholderLabel
         size={size}
