@@ -1,6 +1,6 @@
 // src/stories/Input.stories.jsx
 import React from 'react';
-import { ThemeProvider } from '@emotion/react';
+import { useTheme } from '../ThemeProvider';
 import Input from '../components/Input';
 import styled from '@emotion/styled';
 
@@ -38,6 +38,9 @@ export default {
       options: ['s', 'm', 'l', 'xl'],
     },
     clearable: { control: 'boolean' },
+    colors: {
+      control: 'object',
+    },
   },
 };
 
@@ -48,6 +51,23 @@ const Template = (args) => (
 );
 
 export const Default = Template.bind({});
+
+export const Themed = (args) => {
+  const { theme } = useTheme();
+
+  return (
+    <StyledDiv>
+      <Input {...args} theme={theme} />
+    </StyledDiv>
+  );
+};
+
+export const NoTheme = (args) => (
+  <StyledDiv>
+    <Input {...args} />
+  </StyledDiv>
+);
+
 Default.args = {
   id: 'input-id',
   placeholder: 'Placeholder Text',
@@ -55,32 +75,22 @@ Default.args = {
   type: 'text',
   autocomplete: 'off',
   size: 'm',
+  clearable: true,
 };
-
-// Example with a theme
-const theme = {
-  border: '#3d3d3d',
-  borderFocus: '#4269a8',
-  labelColor: '#4269a8',
-  placeholderColor: '#333',
-};
-
-export const Themed = (args) => (
-  <ThemeProvider theme={theme}>
-    <StyledDiv>
-      <Input {...args} />
-    </StyledDiv>
-  </ThemeProvider>
-);
 
 Themed.args = {
   ...Default.args,
   // Any specific props for the Themed variant
-  clearable: true,
 };
 
-export const NoTheme = (args) => <Input {...args} />;
 NoTheme.args = {
   ...Default.args,
   // Any specific props for the NoTheme variant
+  colors: {
+    inputBorderColor: '#FFC107',
+    inputBorderFocusColor: '#FF5722',
+    inputFontColor: '#00796B',
+    inputLabelColor: '#E91E63',
+    inputPlaceholderColor: '#9C27B0',
+  },
 };

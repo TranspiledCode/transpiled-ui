@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useMemo, useRef } from 'react';
 import styled from '@emotion/styled';
 import PropTypes from 'prop-types';
 import Icon from './Icon';
@@ -7,10 +7,22 @@ import { inputSizeVariants } from '../config';
 import validateAutocompleteValue from '../utils/autoCompleteValidation';
 
 const defaultColors = {
-  border: '#ccc',
-  borderFocus: '#1554bb',
-  labelColor: '#aaa',
-  placeholderColor: '#565656',
+  inputBorderColor: '#CBD2D9',
+  inputBorderFocusColor: '#5A76A8',
+  inputFontColor: '#2E3D49',
+  inputLabelColor: '#5A76A8',
+  inputPlaceholderColor: '#9AA5B1',
+};
+
+const useMergedColors = (theme, customColors) => {
+  return useMemo(
+    () => ({
+      ...defaultColors,
+      ...theme,
+      ...customColors,
+    }),
+    [theme, customColors]
+  );
 };
 
 const Container = styled.div`
@@ -19,15 +31,13 @@ const Container = styled.div`
   align-items: center;
   justify-content: space-between;
   width: 100%;
-  border: 1px solid ${({ theme }) => theme.border || defaultColors.border};
-  border-left: 3px solid ${({ theme }) => theme.border || defaultColors.border};
+  border: 1px solid ${({ colors }) => colors.inputBorderColor};
+  border-left: 3px solid ${({ colors }) => colors.inputBorderColor};
   box-sizing: border-box;
 
   &:focus-within {
-    border-left: 3px solid
-      ${({ theme }) => theme.borderFocus || defaultColors.borderFocus};
-    border-color: ${({ theme }) =>
-      theme.borderFocus || defaultColors.borderFocus};
+    border-left: 3px solid ${({ colors }) => colors.inputBorderFocusColor};
+    border-color: ${({ colors }) => colors.inputBorderFocusColor};
   }
 `;
 
@@ -45,6 +55,7 @@ const StyledInput = styled.input`
   text-overflow: ellipsis;
   box-sizing: border-box;
   white-space: nowrap;
+  color: ${({ colors }) => colors.inputFontColor};
 
   &:focus {
     &::placeholder {
@@ -57,7 +68,7 @@ const StyledInput = styled.input`
     top: ${({ size }) => inputSizeVariants[size].labelTop};
     left: ${({ size }) => inputSizeVariants[size].labelLeft};
     font-size: ${({ size }) => inputSizeVariants[size].labelFontSize};
-    color: ${({ theme }) => theme.labelColor || defaultColors.labelColor};
+    color: ${({ colors }) => colors.inputLabelColor};
   }
 `;
 
@@ -66,8 +77,7 @@ const PlaceholderLabel = styled.label`
   top: ${({ size }) => inputSizeVariants[size].placeholderTop};
   left: ${({ size }) => inputSizeVariants[size].placeholderLeft};
   font-size: ${({ size }) => inputSizeVariants[size].placeholderFontSize};
-  color: ${({ theme }) =>
-    theme.placeholderColor || defaultColors.placeholderColor};
+  color: ${({ colors }) => colors.inputPlaceholderColor};
   transition: all 0.3s;
   white-space: nowrap;
   overflow: hidden;
@@ -92,18 +102,22 @@ const Input = ({
   autocomplete,
   size = 'm',
   clearable = false,
+  colors = {},
+  theme = {},
 }) => {
   const inputRef = useRef(null);
   const [value, setValue] = useState('');
   const [label, setLabel] = useState(placeholder);
 
+  // Use merged colors from default, theme, and custom colors prop
+  const mergedColors = useMergedColors(theme, colors);
+
   const handleChnange = (e) => {
     setValue(e.target.value);
-    console.log(e.target.value);
   };
 
   return (
-    <Container>
+    <Container colors={mergedColors}>
       <StyledInput
         id={id}
         ref={inputRef}
@@ -117,8 +131,9 @@ const Input = ({
           handleChnange(e);
         }}
         value={value}
+        colors={mergedColors}
       />
-      <PlaceholderLabel size={size} htmlFor={id}>
+      <PlaceholderLabel size={size} htmlFor={id} colors={mergedColors}>
         {placeholder}
       </PlaceholderLabel>
       <ClearableIcon>
@@ -146,12 +161,21 @@ Input.propTypes = {
   autocomplete: validateAutocompleteValue,
   size: PropTypes.oneOf(['s', 'm', 'l', 'xl']),
   clearable: PropTypes.bool,
+  colors: PropTypes.shape({
+    border: PropTypes.string,
+    borderFocus: PropTypes.string,
+    labelColor: PropTypes.string,
+    inputPlaceholderColor: PropTypes.string,
+  }),
+  theme: PropTypes.shape({}),
 };
 
 Input.defaultProps = {
   autocomplete: 'off',
   size: 'm',
   clearable: false,
+  colors: {},
+  theme: {},
 };
 
 export default Input;
