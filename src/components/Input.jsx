@@ -1,6 +1,7 @@
 import React, { useState, useRef } from 'react';
 import styled from '@emotion/styled';
 import PropTypes from 'prop-types';
+import Icon from './Icon';
 import validateAutocompleteValue from '../utils/autoCompleteValidation';
 
 const defaultColors = {
@@ -44,14 +45,25 @@ const sizeVariants = {
 const Container = styled.div`
   position: relative;
   display: flex;
+  align-items: center;
+  justify-content: flex-start;
   width: 100%;
+  border: 1px solid red;
+  border: 1px solid ${({ theme }) => theme.border || defaultColors.border};
+  border-left: 3px solid ${({ theme }) => theme.border || defaultColors.border};
+  // When the StyledInput has focus
+  &:focus-within {
+    border-left: 3px solid
+      ${({ theme }) => theme.borderFocus || defaultColors.borderFocus};
+    border-color: ${({ theme }) =>
+      theme.borderFocus || defaultColors.borderFocus};
+  }
 `;
 
 const StyledInput = styled.input`
-  width: 100%;
-  border: 1px solid ${({ theme }) => theme.border || defaultColors.border};
-  border-left: 3px solid ${({ theme }) => theme.border || defaultColors.border};
+  width: 90%;
   outline: none;
+  border: none;
   padding: ${({ size }) => sizeVariants[size].inputPadding};
   font-family: inherit;
   font-size: ${({ size }) => sizeVariants[size].inputFontSize};
@@ -60,10 +72,6 @@ const StyledInput = styled.input`
   text-overflow: ellipsis;
 
   &:focus {
-    border-left: 3px solid
-      ${({ theme }) => theme.borderFocus || defaultColors.borderFocus};
-    border-color: ${({ theme }) =>
-      theme.borderFocus || defaultColors.borderFocus};
     &::placeholder {
       color: transparent;
     }
@@ -94,7 +102,10 @@ const PlaceholderLabel = styled.label`
   }
 `;
 
-const ClearableIcon = styled.button``;
+const ClearableIcon = styled.button`
+  position: absolute;
+  right: 0;
+`;
 
 const Input = ({
   id,
@@ -134,15 +145,17 @@ const Input = ({
         {placeholder}
       </PlaceholderLabel>
       {clearable && value && (
-        <ClearableIcon
-          type='button'
+        <Icon
+          size='1x'
+          iconType='solid'
+          iconName='times'
           onClick={() => {
             setValue('');
             inputRef.current.focus();
           }}
         >
           x
-        </ClearableIcon>
+        </Icon>
       )}
     </Container>
   );
