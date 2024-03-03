@@ -10,6 +10,11 @@ export const defaultTheme = {
     text: '#090909',
     background: '#ffffff',
     shadowColor: 'rgba(0, 0, 0, 0.1)',
+    inputBorderColor: '#4A90E2',
+    inputBorderFocusColor: '#7B8DAB',
+    inputFontColor: '#333333',
+    inputLabelColor: '#4A90E2',
+    inputPlaceholderColor: '#95A5A6',
   },
   dark: {
     primaryColor: '#2EBFD4',
@@ -22,5 +27,10 @@ export const defaultTheme = {
     text: '#ffffff',
     background: '#090909',
     shadowColor: 'rgba(255, 255, 255, 0.1)',
+    inputBorderColor: '#4A90E2',
+    inputBorderFocusColor: '#7B8DAB',
+    inputFontColor: '#333333',
+    inputLabelColor: '#4A90E2',
+    inputPlaceholderColor: '#95A5A6',
   },
 };
