@@ -31,13 +31,27 @@ const Container = styled.div`
   align-items: center;
   justify-content: space-between;
   width: 100%;
-  border: 1px solid ${({ colors }) => colors.inputBorderColor};
-  border-left: 3px solid ${({ colors }) => colors.inputBorderColor};
   box-sizing: border-box;
+  border: ${({ borderStyle, colors }) =>
+    borderStyle === 'bottom' ? 'none' : `1px solid ${colors.inputBorderColor}`};
+  border-bottom: ${({ borderStyle, colors }) =>
+    borderStyle === 'bottom'
+      ? `1px solid ${colors.inputBorderColor}`
+      : `1px solid ${colors.inputBorderColor}`};
+  border-left: ${({ borderStyle, colors }) =>
+    borderStyle !== 'bottom' ? `3px solid ${colors.inputBorderColor}` : 'none'};
 
   &:focus-within {
-    border-left: 3px solid ${({ colors }) => colors.inputBorderFocusColor};
+    color: ${({ colors }) => colors.inputBorderFocusColor};
     border-color: ${({ colors }) => colors.inputBorderFocusColor};
+    border-left: ${({ borderStyle, colors }) =>
+      borderStyle !== 'bottom'
+        ? `3px solid ${colors.inputBorderFocusColor}`
+        : 'none'};
+    border-bottom: ${({ borderStyle, colors }) =>
+      borderStyle !== 'bottom'
+        ? `1px solid ${colors.inputBorderFocusColor}`
+        : `3px solid ${colors.inputBorderFocusColor}`};
   }
 `;
 
@@ -47,10 +61,11 @@ const StyledInput = styled.input`
   width: 100%;
   outline: none;
   border: none;
-  padding: ${({ size }) => inputSizeVariants[size].inputPadding};
+  padding: ${({ borderStyle, size }) =>
+    inputSizeVariants[borderStyle][size].inputPadding};
   font-family: inherit;
-  font-size: ${({ size }) => inputSizeVariants[size].inputFontSize};
-  transition: border-color 0.3s, border-left-width 0.3s;
+  font-size: ${({ borderStyle, size }) =>
+    inputSizeVariants[borderStyle][size].inputFontSize};
   overflow: hidden;
   text-overflow: ellipsis;
   box-sizing: border-box;
@@ -65,18 +80,24 @@ const StyledInput = styled.input`
 
   &:focus + label,
   &:not(:placeholder-shown) + label {
-    top: ${({ size }) => inputSizeVariants[size].labelTop};
-    left: ${({ size }) => inputSizeVariants[size].labelLeft};
-    font-size: ${({ size }) => inputSizeVariants[size].labelFontSize};
+    top: ${({ borderStyle, size }) =>
+      inputSizeVariants[borderStyle][size].labelTop};
+    left: ${({ borderStyle, size }) =>
+      inputSizeVariants[borderStyle][size].labelLeft};
+    font-size: ${({ borderStyle, size }) =>
+      inputSizeVariants[borderStyle][size].labelFontSize};
     color: ${({ colors }) => colors.inputLabelColor};
   }
 `;
 
 const PlaceholderLabel = styled.label`
   position: absolute;
-  top: ${({ size }) => inputSizeVariants[size].placeholderTop};
-  left: ${({ size }) => inputSizeVariants[size].placeholderLeft};
-  font-size: ${({ size }) => inputSizeVariants[size].placeholderFontSize};
+  top: ${({ borderStyle, size }) =>
+    inputSizeVariants[borderStyle][size].placeholderTop};
+  left: ${({ borderStyle, size }) =>
+    inputSizeVariants[borderStyle][size].placeholderLeft};
+  font-size: ${({ borderStyle, size }) =>
+    inputSizeVariants[borderStyle][size].placeholderFontSize};
   color: ${({ colors }) => colors.inputPlaceholderColor};
   transition: all 0.3s;
   white-space: nowrap;
@@ -104,6 +125,7 @@ const Input = ({
   clearable = false,
   colors = {},
   theme = {},
+  borderStyle,
 }) => {
   const inputRef = useRef(null);
   const [value, setValue] = useState('');
@@ -117,7 +139,7 @@ const Input = ({
   };
 
   return (
-    <Container colors={mergedColors}>
+    <Container colors={mergedColors} borderStyle={borderStyle}>
       <StyledInput
         id={id}
         ref={inputRef}
@@ -132,8 +154,14 @@ const Input = ({
         }}
         value={value}
         colors={mergedColors}
+        borderStyle={borderStyle}
       />
-      <PlaceholderLabel size={size} htmlFor={id} colors={mergedColors}>
+      <PlaceholderLabel
+        size={size}
+        htmlFor={id}
+        colors={mergedColors}
+        borderStyle={borderStyle}
+      >
         {placeholder}
       </PlaceholderLabel>
       <ClearableIcon>
@@ -168,6 +196,7 @@ Input.propTypes = {
     inputPlaceholderColor: PropTypes.string,
   }),
   theme: PropTypes.shape({}),
+  borderStyle: PropTypes.oneOf(['box', 'bottom']),
 };
 
 Input.defaultProps = {
@@ -176,6 +205,7 @@ Input.defaultProps = {
   clearable: false,
   colors: {},
   theme: {},
+  borderStyle: 'box',
 };
 
 export default Input;

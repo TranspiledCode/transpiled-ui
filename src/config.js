@@ -1,14 +1,10 @@
-const inputSizeVariants = {
-  // INPUT: the text the user is typing
-  // LABEL: the text that is on top of the input
-  // PLACEHOLDER: the text that is shown in the input field prior to typing
-
+// Define common styles for input elements
+const commonStyles = {
   s: {
     inputPadding: '4px 8px',
     inputFontSize: '1rem',
     labelFontSize: '0.7rem',
-    labelTop: '-0.9rem',
-    labelLeft: '0rem',
+    labelLeft: '0.1rem',
     placeholderFontSize: '0.8rem',
     placeholderTop: '0.5rem',
     placeholderLeft: '0.6rem',
@@ -17,8 +13,7 @@ const inputSizeVariants = {
     inputPadding: '6px 10px',
     inputFontSize: '1.2rem',
     labelFontSize: '0.9rem',
-    labelTop: '-1.2rem',
-    labelLeft: '0rem',
+    labelLeft: '0.1rem',
     placeholderFontSize: '1rem',
     placeholderTop: '0.5rem',
     placeholderLeft: '0.7rem',
@@ -27,8 +22,7 @@ const inputSizeVariants = {
     inputPadding: '8px 11px',
     inputFontSize: '1.4rem',
     labelFontSize: '1rem',
-    labelTop: '-1.4rem',
-    labelLeft: '0rem',
+    labelLeft: '0.1rem',
     placeholderFontSize: '1.2rem',
     placeholderTop: '0.7rem',
     placeholderLeft: '0.7rem',
@@ -37,11 +31,30 @@ const inputSizeVariants = {
     inputPadding: '10px 11px',
     inputFontSize: '1.6rem',
     labelFontSize: '1.1rem',
-    labelTop: '-1.6rem',
-    labelLeft: '0rem',
+    labelLeft: '0.1rem',
     placeholderFontSize: '1.4rem',
     placeholderTop: '0.8rem',
     placeholderLeft: '0.7rem',
+  },
+};
+
+// Define size variants for input elements, including padding, font sizes, and positions for label and placeholder
+const inputSizeVariants = {
+  // Variants for the 'box' layout
+  box: {
+    ...commonStyles,
+    s: { ...commonStyles.s, labelTop: '-0.9rem' },
+    m: { ...commonStyles.m, labelTop: '-1.2rem' },
+    l: { ...commonStyles.l, labelTop: '-1.4rem' },
+    xl: { ...commonStyles.xl, labelTop: '-1.6rem' },
+  },
+  // Variants for the 'bottom' layout
+  bottom: {
+    ...commonStyles,
+    s: { ...commonStyles.s, labelTop: '2.2rem' },
+    m: { ...commonStyles.m, labelTop: '2.4rem' },
+    l: { ...commonStyles.l, labelTop: '2.8rem' },
+    xl: { ...commonStyles.xl, labelTop: '3.3rem' },
   },
 };
 
