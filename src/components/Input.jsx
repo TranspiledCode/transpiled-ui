@@ -94,6 +94,8 @@ const PlaceholderLabel = styled.label`
   }
 `;
 
+const ClearableIcon = styled.button``;
+
 const Input = ({
   id,
   placeholder,
@@ -132,7 +134,7 @@ const Input = ({
         {placeholder}
       </PlaceholderLabel>
       {clearable && value && (
-        <button
+        <ClearableIcon
           type='button'
           onClick={() => {
             setValue('');
@@ -140,7 +142,7 @@ const Input = ({
           }}
         >
           x
-        </button>
+        </ClearableIcon>
       )}
     </Container>
   );

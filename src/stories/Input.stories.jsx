@@ -42,7 +42,6 @@ Default.args = {
   type: 'text',
   autocomplete: 'off',
   size: 'm',
-  clearable: true,
 };
 
 // Example with a theme
@@ -64,6 +63,7 @@ export const Themed = (args) => (
 Themed.args = {
   ...Default.args,
   // Any specific props for the Themed variant
+  clearable: true,
 };
 
 export const NoTheme = (args) => <Input {...args} />;
