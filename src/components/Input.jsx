@@ -12,6 +12,8 @@ const defaultColors = {
   inputFontColor: '#2E3D49',
   inputLabelColor: '#5A76A8',
   inputPlaceholderColor: '#9AA5B1',
+  inputBackgroundColor: 'transparent',
+  inputClearIconColor: '#b19aad',
 };
 
 const useMergedColors = (theme, customColors) => {
@@ -32,6 +34,7 @@ const Container = styled.div`
   justify-content: space-between;
   width: 100%;
   box-sizing: border-box;
+  background-color: ${({ colors }) => colors.inputBackgroundColor};
   border: ${({ borderStyle, colors }) =>
     borderStyle === 'bottom' ? 'none' : `1px solid ${colors.inputBorderColor}`};
   border-bottom: ${({ borderStyle, colors }) =>
@@ -61,6 +64,7 @@ const StyledInput = styled.input`
   width: 100%;
   outline: none;
   border: none;
+  background-color: ${({ colors }) => colors.inputBackgroundColor};
   padding: ${({ borderStyle, size }) =>
     inputSizeVariants[borderStyle][size].inputPadding};
   font-family: inherit;
@@ -113,6 +117,8 @@ const ClearableIcon = styled.div`
   justify-content: center;
   cursor: pointer;
   margin: 0 0.5rem;
+  color: ${({ colors }) => colors.inputClearIconColor};
+  background-color: ${({ colors }) => colors.inputBackgroundColor};
 `;
 
 const Input = ({
@@ -132,14 +138,14 @@ const Input = ({
   const [label, setLabel] = useState(placeholder);
 
   // Use merged colors from default, theme, and custom colors prop
-  const mergedColors = useMergedColors(theme, colors);
+  const inputColors = useMergedColors(theme, colors);
 
   const handleChnange = (e) => {
     setValue(e.target.value);
   };
 
   return (
-    <Container colors={mergedColors} borderStyle={borderStyle}>
+    <Container colors={inputColors} borderStyle={borderStyle}>
       <StyledInput
         id={id}
         ref={inputRef}
@@ -153,18 +159,18 @@ const Input = ({
           handleChnange(e);
         }}
         value={value}
-        colors={mergedColors}
+        colors={inputColors}
         borderStyle={borderStyle}
       />
       <PlaceholderLabel
         size={size}
         htmlFor={id}
-        colors={mergedColors}
+        colors={inputColors}
         borderStyle={borderStyle}
       >
         {placeholder}
       </PlaceholderLabel>
-      <ClearableIcon>
+      <ClearableIcon colors={inputColors}>
         {clearable && value && (
           <Icon
             size='1x'
@@ -190,10 +196,13 @@ Input.propTypes = {
   size: PropTypes.oneOf(['s', 'm', 'l', 'xl']),
   clearable: PropTypes.bool,
   colors: PropTypes.shape({
-    border: PropTypes.string,
-    borderFocus: PropTypes.string,
-    labelColor: PropTypes.string,
+    inputBorderColor: PropTypes.string,
+    inputBorderFocusColor: PropTypes.string,
+    inputFontColor: PropTypes.string,
+    inputLabelColor: PropTypes.string,
     inputPlaceholderColor: PropTypes.string,
+    inputBackgroundColor: PropTypes.string,
+    inputClearIconColor: PropTypes.string,
   }),
   theme: PropTypes.shape({}),
   borderStyle: PropTypes.oneOf(['box', 'bottom']),
