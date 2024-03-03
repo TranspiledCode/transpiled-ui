@@ -43,14 +43,14 @@ const Container = styled.div`
       ? `1px solid ${colors.inputBorderColor}`
       : `1px solid ${colors.inputBorderColor}`};
   border-left: ${({ borderStyle, colors }) =>
-    borderStyle !== 'bottom' ? `3px solid ${colors.inputBorderColor}` : 'none'};
+    borderStyle !== 'bottom' ? `1px solid ${colors.inputBorderColor}` : 'none'};
 
   &:focus-within {
     color: ${({ colors }) => colors.inputBorderFocusColor};
     border-color: ${({ colors }) => colors.inputBorderFocusColor};
     border-left: ${({ borderStyle, colors }) =>
       borderStyle !== 'bottom'
-        ? `1px solid ${colors.inputBorderFocusColor}`
+        ? `3px solid ${colors.inputBorderFocusColor}`
         : 'none'};
     border-bottom: ${({ borderStyle, colors }) =>
       borderStyle !== 'bottom'
