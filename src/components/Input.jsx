@@ -7,40 +7,52 @@ import validateAutocompleteValue from '../utils/autoCompleteValidation';
 const defaultColors = {
   border: '#ccc',
   borderFocus: '#1554bb',
-  labelColor: '#565656',
-  placeholderColor: '#aaa',
+  labelColor: '#aaa',
+  placeholderColor: '#565656',
 };
 
 const sizeVariants = {
+  // INPUT: the text the user is typing
+  // LABEL: the text that is on top of the input
+  // PLACEHOLDER: the text that is shown in the input field prior to typing
+
   s: {
     inputPadding: '4px 8px',
     inputFontSize: '1rem',
-    labelFontSize: '0.8rem',
-    labelTop: '-1.2rem',
-    placeholderTop: '0.4rem',
+    labelFontSize: '0.7rem',
+    labelTop: '-0.9rem',
+    labelLeft: '0rem',
+    placeholderFontSize: '0.8rem',
+    placeholderTop: '0.5rem',
     placeholderLeft: '0.6rem',
   },
   m: {
     inputPadding: '6px 10px',
     inputFontSize: '1.2rem',
-    labelFontSize: '1rem',
-    labelTop: '-1.5rem',
-    placeholderTop: '0.6rem',
+    labelFontSize: '0.9rem',
+    labelTop: '-1.2rem',
+    labelLeft: '0rem',
+    placeholderFontSize: '1rem',
+    placeholderTop: '0.5rem',
     placeholderLeft: '0.7rem',
   },
   l: {
     inputPadding: '8px 11px',
     inputFontSize: '1.4rem',
-    labelFontSize: '1.2rem',
-    labelTop: '-1.8rem',
+    labelFontSize: '1rem',
+    labelTop: '-1.4rem',
+    labelLeft: '0rem',
+    placeholderFontSize: '1.2rem',
     placeholderTop: '0.7rem',
     placeholderLeft: '0.7rem',
   },
   xl: {
     inputPadding: '10px 11px',
     inputFontSize: '1.6rem',
-    labelFontSize: '1.4rem',
-    labelTop: '-2.1rem',
+    labelFontSize: '1.1rem',
+    labelTop: '-1.6rem',
+    labelLeft: '0rem',
+    placeholderFontSize: '1.4rem',
     placeholderTop: '0.8rem',
     placeholderLeft: '0.7rem',
   },
@@ -48,14 +60,14 @@ const sizeVariants = {
 
 const Container = styled.div`
   position: relative;
-  display: grid;
-  grid-template-columns: 1fr auto;
+  display: flex;
   align-items: center;
-  justify-content: flex-start;
+  justify-content: space-between;
   width: 100%;
   border: 1px solid ${({ theme }) => theme.border || defaultColors.border};
   border-left: 3px solid ${({ theme }) => theme.border || defaultColors.border};
-  // When the StyledInput has focus
+  box-sizing: border-box;
+
   &:focus-within {
     border-left: 3px solid
       ${({ theme }) => theme.borderFocus || defaultColors.borderFocus};
@@ -65,7 +77,9 @@ const Container = styled.div`
 `;
 
 const StyledInput = styled.input`
-  width: 95%;
+  position: relative;
+  display: block;
+  width: 100%;
   outline: none;
   border: none;
   padding: ${({ size }) => sizeVariants[size].inputPadding};
@@ -74,6 +88,8 @@ const StyledInput = styled.input`
   transition: border-color 0.3s, border-left-width 0.3s;
   overflow: hidden;
   text-overflow: ellipsis;
+  box-sizing: border-box;
+  white-space: nowrap;
 
   &:focus {
     &::placeholder {
@@ -84,29 +100,24 @@ const StyledInput = styled.input`
   &:focus + label,
   &:not(:placeholder-shown) + label {
     top: ${({ size }) => sizeVariants[size].labelTop};
-    left: ${({ size }) => sizeVariants[size].placeholderLeft};
+    left: ${({ size }) => sizeVariants[size].labelLeft};
     font-size: ${({ size }) => sizeVariants[size].labelFontSize};
     color: ${({ theme }) => theme.labelColor || defaultColors.labelColor};
   }
-
-  // testing
-  border: 1px solid red;
 `;
 
-// initial placeholder styling
 const PlaceholderLabel = styled.label`
   position: absolute;
   top: ${({ size }) => sizeVariants[size].placeholderTop};
   left: ${({ size }) => sizeVariants[size].placeholderLeft};
-  font-size: ${({ size }) => sizeVariants[size].labelFontSize};
+  font-size: ${({ size }) => sizeVariants[size].placeholderFontSize};
   color: ${({ theme }) =>
     theme.placeholderColor || defaultColors.placeholderColor};
   transition: all 0.3s;
-  pointer-events: none;
-
-  @media (min-width: 768px) {
-    font-size: ${({ size }) => sizeVariants[size].labelFontSize};
-  }
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  width: 90%;
 `;
 
 const ClearableIcon = styled.div`
@@ -115,7 +126,7 @@ const ClearableIcon = styled.div`
   align-items: center;
   justify-content: center;
   cursor: pointer;
-  margin-right: 0.5rem;
+  margin: 0 0.5rem;
 `;
 
 const Input = ({
