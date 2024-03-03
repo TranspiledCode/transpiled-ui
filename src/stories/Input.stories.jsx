@@ -24,6 +24,7 @@ export default {
       control: 'select',
       options: ['s', 'm', 'l', 'xl'],
     },
+    clearable: { control: 'boolean' },
   },
 };
 
@@ -41,6 +42,7 @@ Default.args = {
   type: 'text',
   autocomplete: 'off',
   size: 'm',
+  clearable: true,
 };
 
 // Example with a theme
@@ -58,6 +60,7 @@ export const Themed = (args) => (
     </StyledDiv>
   </ThemeProvider>
 );
+
 Themed.args = {
   ...Default.args,
   // Any specific props for the Themed variant

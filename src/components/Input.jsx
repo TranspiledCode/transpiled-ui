@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import styled from '@emotion/styled';
 import PropTypes from 'prop-types';
 import validateAutocompleteValue from '../utils/autoCompleteValidation';
@@ -94,22 +94,54 @@ const PlaceholderLabel = styled.label`
   }
 `;
 
-const Input = ({ id, placeholder, name, type, autocomplete, size = 'm' }) => {
+const Input = ({
+  id,
+  placeholder,
+  name,
+  type,
+  autocomplete,
+  size = 'm',
+  clearable = false,
+}) => {
+  const inputRef = useRef(null);
+  const [value, setValue] = useState('');
   const [label, setLabel] = useState(placeholder);
+
+  const handleChnange = (e) => {
+    setValue(e.target.value);
+    console.log(e.target.value);
+  };
 
   return (
     <Container>
       <StyledInput
         id={id}
+        ref={inputRef}
         placeholder={label ? '' : placeholder}
         name={name}
         type={type}
         autoComplete={autocomplete || 'off'}
         size={size}
+        clearable={clearable}
+        onChange={(e) => {
+          handleChnange(e);
+        }}
+        value={value}
       />
       <PlaceholderLabel size={size} htmlFor={id}>
         {placeholder}
       </PlaceholderLabel>
+      {clearable && value && (
+        <button
+          type='button'
+          onClick={() => {
+            setValue('');
+            inputRef.current.focus();
+          }}
+        >
+          x
+        </button>
+      )}
     </Container>
   );
 };
@@ -121,6 +153,13 @@ Input.propTypes = {
   type: PropTypes.string.isRequired,
   autocomplete: validateAutocompleteValue,
   size: PropTypes.oneOf(['s', 'm', 'l', 'xl']),
+  clearable: PropTypes.bool,
+};
+
+Input.defaultProps = {
+  autocomplete: 'off',
+  size: 'm',
+  clearable: false,
 };
 
 export default Input;
