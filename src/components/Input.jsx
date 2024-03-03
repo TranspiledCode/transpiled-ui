@@ -28,6 +28,7 @@ const useMergedColors = (theme, customColors) => {
 };
 
 const Container = styled.div`
+  font-size: 10px;
   position: relative;
   display: flex;
   align-items: center;
