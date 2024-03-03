@@ -44,6 +44,10 @@ export default {
     theme: {
       control: 'object',
     },
+    borderStyle: {
+      control: 'radio',
+      options: ['box', 'bottom'],
+    },
   },
 };
 
@@ -79,6 +83,9 @@ Default.args = {
   autocomplete: 'off',
   size: 'm',
   clearable: true,
+  colors: {},
+  theme: {},
+  borderStyle: 'box',
 };
 
 Themed.args = {
