@@ -48,6 +48,7 @@ export default {
       control: 'radio',
       options: ['box', 'bottom'],
     },
+    fieldLabel: { control: 'boolean' },
   },
 };
 
@@ -86,6 +87,7 @@ Default.args = {
   colors: {},
   theme: {},
   borderStyle: 'box',
+  fieldLabel: true,
 };
 
 Themed.args = {
