@@ -12,7 +12,7 @@ const StyledDiv = styled.div`
 `;
 
 export default {
-  title: 'Example/Input',
+  title: 'components/Input',
   component: Input,
   argTypes: {
     id: { control: 'text' },
