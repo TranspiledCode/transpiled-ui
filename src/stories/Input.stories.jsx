@@ -7,19 +7,32 @@ import styled from '@emotion/styled';
 const StyledDiv = styled.div`
   display: flex;
   flex-direction: column;
-  width: 500px;
   padding: 40px;
 `;
 
 export default {
   title: 'components/Input',
+  tags: ['autodocs'],
+
   component: Input,
   argTypes: {
     id: { control: 'text' },
     placeholder: { control: 'text' },
     name: { control: 'text' },
     type: { control: 'text' },
-    autocomplete: { control: 'text' },
+    autocomplete: {
+      control: 'select',
+      options: [
+        'on',
+        'off',
+        'username',
+        'new-password',
+        'current-password',
+        'email',
+        'tel',
+        'name',
+      ],
+    },
     size: {
       control: 'select',
       options: ['s', 'm', 'l', 'xl'],

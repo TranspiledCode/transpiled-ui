@@ -18,6 +18,7 @@ const sizeVariants = {
     labelFontSize: '0.8rem',
     labelTop: '-1.2rem',
     placeholderTop: '0.4rem',
+    placeholderLeft: '0.6rem',
   },
   m: {
     inputPadding: '6px 10px',
@@ -25,6 +26,7 @@ const sizeVariants = {
     labelFontSize: '1rem',
     labelTop: '-1.5rem',
     placeholderTop: '0.6rem',
+    placeholderLeft: '0.7rem',
   },
   l: {
     inputPadding: '8px 11px',
@@ -32,6 +34,7 @@ const sizeVariants = {
     labelFontSize: '1.2rem',
     labelTop: '-1.8rem',
     placeholderTop: '0.7rem',
+    placeholderLeft: '0.7rem',
   },
   xl: {
     inputPadding: '10px 11px',
@@ -39,16 +42,17 @@ const sizeVariants = {
     labelFontSize: '1.4rem',
     labelTop: '-2.1rem',
     placeholderTop: '0.8rem',
+    placeholderLeft: '0.7rem',
   },
 };
 
 const Container = styled.div`
   position: relative;
-  display: flex;
+  display: grid;
+  grid-template-columns: 1fr auto;
   align-items: center;
   justify-content: flex-start;
   width: 100%;
-  border: 1px solid red;
   border: 1px solid ${({ theme }) => theme.border || defaultColors.border};
   border-left: 3px solid ${({ theme }) => theme.border || defaultColors.border};
   // When the StyledInput has focus
@@ -61,7 +65,7 @@ const Container = styled.div`
 `;
 
 const StyledInput = styled.input`
-  width: 90%;
+  width: 95%;
   outline: none;
   border: none;
   padding: ${({ size }) => sizeVariants[size].inputPadding};
@@ -80,17 +84,20 @@ const StyledInput = styled.input`
   &:focus + label,
   &:not(:placeholder-shown) + label {
     top: ${({ size }) => sizeVariants[size].labelTop};
-    left: 0.8rem;
+    left: ${({ size }) => sizeVariants[size].placeholderLeft};
     font-size: ${({ size }) => sizeVariants[size].labelFontSize};
     color: ${({ theme }) => theme.labelColor || defaultColors.labelColor};
   }
+
+  // testing
+  border: 1px solid red;
 `;
 
 // initial placeholder styling
 const PlaceholderLabel = styled.label`
   position: absolute;
   top: ${({ size }) => sizeVariants[size].placeholderTop};
-  left: 0.8rem;
+  left: ${({ size }) => sizeVariants[size].placeholderLeft};
   font-size: ${({ size }) => sizeVariants[size].labelFontSize};
   color: ${({ theme }) =>
     theme.placeholderColor || defaultColors.placeholderColor};
@@ -102,9 +109,13 @@ const PlaceholderLabel = styled.label`
   }
 `;
 
-const ClearableIcon = styled.button`
-  position: absolute;
-  right: 0;
+const ClearableIcon = styled.div`
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  margin-right: 0.5rem;
 `;
 
 const Input = ({
@@ -144,19 +155,19 @@ const Input = ({
       <PlaceholderLabel size={size} htmlFor={id}>
         {placeholder}
       </PlaceholderLabel>
-      {clearable && value && (
-        <Icon
-          size='1x'
-          iconType='solid'
-          iconName='times'
-          onClick={() => {
-            setValue('');
-            inputRef.current.focus();
-          }}
-        >
-          x
-        </Icon>
-      )}
+      <ClearableIcon>
+        {clearable && value && (
+          <Icon
+            size='1x'
+            iconType='solid'
+            iconName='close'
+            onClick={() => {
+              setValue('');
+              inputRef.current.focus();
+            }}
+          />
+        )}
+      </ClearableIcon>
     </Container>
   );
 };
