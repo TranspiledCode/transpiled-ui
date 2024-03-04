@@ -76,6 +76,33 @@ export const NoTheme = (args) => (
   </StyledDiv>
 );
 
+export const Form = () => (
+  <>
+    <StyledDiv>
+      <Input
+        id='name-id'
+        placeholder='Name'
+        name='input-name'
+        type='text'
+        borderStyle='bottom'
+        clearable
+        // fieldLabel={false}
+      />
+    </StyledDiv>
+    <StyledDiv>
+      <Input
+        id='email-id'
+        placeholder='Email'
+        name='input-email'
+        type='email'
+        borderStyle='bottom'
+        clearable
+        // fieldLabel={false}
+      />
+    </StyledDiv>
+  </>
+);
+
 Default.args = {
   id: 'input-id',
   placeholder: 'Placeholder Text',
