@@ -55,7 +55,7 @@ const Container = styled.div`
     border-bottom: ${({ borderStyle, colors }) =>
       borderStyle !== 'bottom'
         ? `1px solid ${colors.inputBorderFocusColor}`
-        : `1px solid ${colors.inputBorderFocusColor}`};
+        : `3px solid ${colors.inputBorderFocusColor}`};
   }
 `;
 
@@ -174,7 +174,12 @@ const Input = ({
       >
         {placeholder}
       </PlaceholderLabel>
-      <ClearableIcon colors={inputColors}>
+      <ClearableIcon
+        colors={inputColors}
+        onMouseDown={(e) => {
+          e.preventDefault();
+        }}
+      >
         {clearable && value && (
           <Icon
             size='1x'
@@ -182,7 +187,6 @@ const Input = ({
             iconName='close'
             onClick={() => {
               setValue('');
-              inputRef.current.focus();
             }}
           />
         )}
