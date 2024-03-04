@@ -51,10 +51,10 @@ const inputSizeVariants = {
   // Variants for the 'bottom' layout
   bottom: {
     ...commonStyles,
-    s: { ...commonStyles.s, labelTop: '2.3em' },
-    m: { ...commonStyles.m, labelTop: '2.5em' },
-    l: { ...commonStyles.l, labelTop: '2.8em' },
-    xl: { ...commonStyles.xl, labelTop: '3.3em' },
+    s: { ...commonStyles.s, labelTop: '2.3em', inputPadding: '4px 0px' },
+    m: { ...commonStyles.m, labelTop: '2.5em', inputPadding: '6px 0px' },
+    l: { ...commonStyles.l, labelTop: '2.8em', inputPadding: '8px 0px' },
+    xl: { ...commonStyles.xl, labelTop: '3.3em', inputPadding: '10px 0px' },
   },
 };
 
