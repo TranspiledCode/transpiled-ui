@@ -50,12 +50,12 @@ const Container = styled.div`
     border-color: ${({ colors }) => colors.inputBorderFocusColor};
     border-left: ${({ borderStyle, colors }) =>
       borderStyle !== 'bottom'
-        ? `3px solid ${colors.inputBorderFocusColor}`
+        ? `2px solid ${colors.inputBorderFocusColor}`
         : 'none'};
     border-bottom: ${({ borderStyle, colors }) =>
       borderStyle !== 'bottom'
         ? `1px solid ${colors.inputBorderFocusColor}`
-        : `3px solid ${colors.inputBorderFocusColor}`};
+        : `2px solid ${colors.inputBorderFocusColor}`};
   }
 `;
 
@@ -65,6 +65,7 @@ const StyledInput = styled.input`
   width: 100%;
   outline: none;
   border: none;
+  border-bottom: 1px solid transparent;
   background-color: ${({ colors }) => colors.inputBackgroundColor};
   padding: ${({ borderStyle, size }) =>
     inputSizeVariants[borderStyle][size].inputPadding};
@@ -78,6 +79,7 @@ const StyledInput = styled.input`
   color: ${({ colors }) => colors.inputFontColor};
 
   &:focus {
+    border-bottom: none;
     &::placeholder {
       color: transparent;
     }
