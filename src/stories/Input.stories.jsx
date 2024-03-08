@@ -109,11 +109,11 @@ Default.args = {
   name: 'input-name',
   type: 'text',
   autocomplete: 'off',
-  size: 'm',
+  size: 's',
   clearable: true,
   colors: {},
   theme: {},
-  borderStyle: 'box',
+  borderStyle: 'bottom',
   fieldLabel: true,
 };
 
