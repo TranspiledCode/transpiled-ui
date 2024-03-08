@@ -1,32 +1,28 @@
 // Define common styles for input elements
 const commonStyles = {
   s: {
-    inputFontSize: '1.8em',
-    labelFontSize: '1.4em',
-
-    placeholderFontSize: '1.6em',
-    placeholderTop: '0.5em',
+    inputFontSize: '1.4em',
+    placeholderFontSize: '1.4em',
+    labelFontSize: '1em',
+    placeholderTop: '0.1em',
   },
   m: {
-    inputFontSize: '1.8em',
-    labelFontSize: '1.2em',
-
-    placeholderFontSize: '1.8em',
-    placeholderTop: '0.5em',
+    inputFontSize: '1.6em',
+    placeholderFontSize: '1.6em',
+    labelFontSize: '1em',
+    placeholderTop: '0.1em',
   },
   l: {
-    inputFontSize: '2.2em',
-    labelFontSize: '1.7em',
-
-    placeholderFontSize: '2em',
-    placeholderTop: '0.7em',
+    inputFontSize: '1.8em',
+    placeholderFontSize: '1.8em',
+    labelFontSize: '1.2em',
+    placeholderTop: '0.1em',
   },
   xl: {
-    inputFontSize: '2.4em',
-    labelFontSize: '1.8em',
-
-    placeholderFontSize: '2.1em',
-    placeholderTop: '0.8em',
+    inputFontSize: '2.0em',
+    placeholderFontSize: '2.0em',
+    labelFontSize: '1.4em', // Font Size when the label moves put of the input area
+    placeholderTop: '0.2em',
   },
 };
 
@@ -69,29 +65,29 @@ const inputSizeVariants = {
     ...commonStyles,
     s: {
       ...commonStyles.s,
-      labelTop: '2.3em',
-      inputPadding: '0.2em 0.1em',
+      labelTop: '2.6em',
+      inputPadding: '0.1em 0.1em',
       placeholderLeft: '0.1em',
       labelLeft: '0.1em',
     },
     m: {
       ...commonStyles.m,
-      labelTop: '2.5em',
-      inputPadding: '0.2em 0.1em',
+      labelTop: '2.4em',
+      inputPadding: '0.1em 0.1em',
       placeholderLeft: '0.1em',
       labelLeft: '0.1em',
     },
     l: {
       ...commonStyles.l,
-      labelTop: '2.8em',
-      inputPadding: '0.2em 0.1em',
+      labelTop: '2.6em',
+      inputPadding: '0.1em 0.1em',
       placeholderLeft: '0.1em',
       labelLeft: '0.1em',
     },
     xl: {
       ...commonStyles.xl,
-      labelTop: '3.3em',
-      inputPadding: '0.2em 0.1em',
+      labelTop: '2.4em',
+      inputPadding: '0.1em 0.1em',
       placeholderLeft: '0.1em',
       labelLeft: '0.1em',
     },

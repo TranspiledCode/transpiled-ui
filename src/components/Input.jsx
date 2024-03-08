@@ -65,7 +65,7 @@ const StyledInput = styled.input`
   width: 100%;
   outline: none;
   border: none;
-  border-bottom: 1px solid transparent;
+  border-bottom: 2px solid transparent;
   background-color: ${({ colors }) => colors.inputBackgroundColor};
   padding: ${({ borderStyle, size }) =>
     inputSizeVariants[borderStyle][size].inputPadding};
