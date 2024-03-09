@@ -43,7 +43,7 @@ const Container = styled.div`
       ? `1px solid ${colors.inputBorderColor}`
       : `1px solid ${colors.inputBorderColor}`};
   border-left: ${({ borderStyle, colors }) =>
-    borderStyle !== 'bottom' ? `1px solid ${colors.inputBorderColor}` : 'none'};
+    borderStyle !== 'bottom' ? `2px solid ${colors.inputBorderColor}` : 'none'};
 
   &:focus-within {
     color: ${({ colors }) => colors.inputBorderFocusColor};
@@ -79,7 +79,8 @@ const StyledInput = styled.input`
   color: ${({ colors }) => colors.inputFontColor};
 
   &:focus {
-    border-bottom: none;
+    /* border-bottom: none; */
+
     &::placeholder {
       color: transparent;
     }
