@@ -7,7 +7,9 @@ import styled from '@emotion/styled';
 const StyledDiv = styled.div`
   display: flex;
   flex-direction: column;
-  padding: 40px;
+  /* padding: 40px; */
+  max-width: 200px;
+  font-family: 'roboto', sans-serif;
 `;
 
 export default {
@@ -113,7 +115,7 @@ Default.args = {
   clearable: true,
   colors: {},
   theme: {},
-  borderStyle: 'bottom',
+  borderStyle: 'box',
   fieldLabel: true,
 };
 
