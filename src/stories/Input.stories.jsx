@@ -8,7 +8,7 @@ const StyledDiv = styled.div`
   display: flex;
   flex-direction: column;
   /* padding: 40px; */
-  max-width: 200px;
+  max-width: 400px;
   font-family: 'roboto', sans-serif;
 `;
 
@@ -111,7 +111,7 @@ Default.args = {
   name: 'input-name',
   type: 'text',
   autocomplete: 'off',
-  size: 's',
+  size: 'm',
   clearable: true,
   colors: {},
   theme: {},
