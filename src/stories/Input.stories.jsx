@@ -1,4 +1,3 @@
-// src/stories/Input.stories.jsx
 import React from 'react';
 import { useTheme } from '../ThemeProvider';
 import Input from '../components/Input';
@@ -8,9 +7,7 @@ const StyledDiv = styled.div`
   display: flex;
   flex-direction: column;
   padding: 40px;
-  max-width: 400px;
   font-family: 'roboto', sans-serif;
-  font-size: 18px;
 `;
 
 export default {
@@ -38,8 +35,9 @@ export default {
     },
     size: {
       control: 'radio',
-      options: ['xs', 's', 'm', 'l', 'xl'],
+      options: ['s', 'm', 'l', 'xl'],
     },
+    baseFontSize: { control: 'text' },
     clearable: { control: 'boolean' },
     colors: {
       control: 'object',
@@ -89,7 +87,6 @@ export const Form = () => (
         type='text'
         borderStyle='bottom'
         clearable
-        // fieldLabel={false}
       />
     </StyledDiv>
     <StyledDiv>
@@ -100,7 +97,6 @@ export const Form = () => (
         type='email'
         borderStyle='bottom'
         clearable
-        // fieldLabel={false}
       />
     </StyledDiv>
   </>
@@ -122,12 +118,10 @@ Default.args = {
 
 Themed.args = {
   ...Default.args,
-  // Any specific props for the Themed variant
 };
 
 NoTheme.args = {
   ...Default.args,
-  // Any specific props for the NoTheme variant
   colors: {
     inputBorderColor: '#FFC107',
     inputBorderFocusColor: '#FF5722',

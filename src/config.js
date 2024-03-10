@@ -1,43 +1,39 @@
 // Define common styles for input elements
 const commonStyles = {
-  xs: {
-    inputFontSize: '1em',
-    placeholderFontSize: '1em',
-    labelFontSize: '0.6em',
-  },
   s: {
     inputFontSize: '1.2em',
     placeholderFontSize: '1.2em',
     labelFontSize: '0.8em',
+    clearIconFontSize: '1.2em',
+    clearIconMargin: '0 1rem',
   },
   m: {
     inputFontSize: '1.4em',
     placeholderFontSize: '1.4em',
     labelFontSize: '1.0em',
+    clearIconFontSize: '1.4em',
+    clearIconMargin: '0 1rem',
   },
   l: {
     inputFontSize: '1.8em',
     placeholderFontSize: '1.8em',
     labelFontSize: '1.2em',
+    clearIconFontSize: '1.8em',
+    clearIconMargin: '0 1rem',
   },
   xl: {
     inputFontSize: '2.2em',
     placeholderFontSize: '2.2em',
     labelFontSize: '1.4em',
+    clearIconFontSize: '2em',
+    clearIconMargin: '0 1rem',
   },
 };
 
 const inputSizeVariants = {
   box: {
     ...commonStyles,
-    xs: {
-      ...commonStyles.xs,
-      labelTop: '-1.3em',
-      inputPadding: '0.3em 0.6em 0.2em 0.6em',
-      placeholderLeft: '0.6em',
-      labelLeft: '-0.1em',
-      placeholderTop: '0.3em',
-    },
+
     s: {
       ...commonStyles.s,
       labelTop: '-1.3em',
@@ -73,37 +69,31 @@ const inputSizeVariants = {
   },
   bottom: {
     ...commonStyles,
-    xs: {
-      ...commonStyles.xs,
-      labelTop: '2.4em',
-      placeholderLeft: '0.1em',
-      labelLeft: '0.1em',
-      placeholderTop: '0.1em',
-    },
+
     s: {
       ...commonStyles.s,
-      labelTop: '2.3em',
+      labelTop: '2.6em',
       placeholderLeft: '0.1em',
       labelLeft: '0.1em',
       placeholderTop: '0.1em',
     },
     m: {
       ...commonStyles.m,
-      labelTop: '2.2em',
+      labelTop: '2.4em',
       placeholderLeft: '0.1em',
       labelLeft: '0.1em',
       placeholderTop: '0.1em',
     },
     l: {
       ...commonStyles.l,
-      labelTop: '2.1em',
+      labelTop: '2.3em',
       placeholderLeft: '0.1em',
       labelLeft: '0.1em',
       placeholderTop: '0.1em',
     },
     xl: {
       ...commonStyles.xl,
-      labelTop: '2em',
+      labelTop: '2.3em',
       placeholderLeft: '0.1em',
       labelLeft: '0.1em',
       placeholderTop: '0.1em',

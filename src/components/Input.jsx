@@ -28,7 +28,7 @@ const useMergedColors = (theme, customColors) => {
 };
 
 const Container = styled.div`
-  /* font-size: 10px; */
+  font-size: ${({ baseFontSize }) => baseFontSize};
   position: relative;
   display: flex;
   align-items: center;
@@ -79,8 +79,6 @@ const StyledInput = styled.input`
   color: ${({ colors }) => colors.inputFontColor};
 
   &:focus {
-    /* border-bottom: none; */
-
     &::placeholder {
       color: transparent;
     }
@@ -121,9 +119,12 @@ const ClearableIcon = styled.div`
   align-items: center;
   justify-content: center;
   cursor: pointer;
-  margin: 0 0.5rem;
+  margin: ${({ borderStyle, size }) =>
+    inputSizeVariants[borderStyle][size].clearIconMargin};
   color: ${({ colors }) => colors.inputClearIconColor};
   background-color: ${({ colors }) => colors.inputBackgroundColor};
+  font-size: ${({ borderStyle, size }) =>
+    inputSizeVariants[borderStyle][size].clearIconFontSize};
 `;
 
 const Input = ({
@@ -138,6 +139,7 @@ const Input = ({
   theme = {},
   borderStyle,
   fieldLabel = true,
+  baseFontSize = '10px',
 }) => {
   const inputRef = useRef(null);
   const [value, setValue] = useState('');
@@ -151,7 +153,11 @@ const Input = ({
   };
 
   return (
-    <Container colors={inputColors} borderStyle={borderStyle}>
+    <Container
+      colors={inputColors}
+      borderStyle={borderStyle}
+      baseFontSize={baseFontSize}
+    >
       <StyledInput
         id={id}
         ref={inputRef}
@@ -178,6 +184,8 @@ const Input = ({
         {placeholder}
       </PlaceholderLabel>
       <ClearableIcon
+        size={size}
+        borderStyle={borderStyle}
         colors={inputColors}
         onMouseDown={(e) => {
           e.preventDefault();
