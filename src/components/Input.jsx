@@ -13,7 +13,7 @@ const defaultColors = {
   inputLabelColor: '#5A76A8',
   inputPlaceholderColor: '#9AA5B1',
   inputBackgroundColor: 'transparent',
-  inputClearIconColor: '#b19aad',
+  inputClearIconColor: '#6f6f6f',
 };
 
 const useMergedColors = (theme, customColors) => {

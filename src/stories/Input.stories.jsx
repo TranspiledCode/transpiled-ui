@@ -129,6 +129,6 @@ NoTheme.args = {
     inputLabelColor: '#E91E63',
     inputPlaceholderColor: '#9C27B0',
     inputBackgroundColor: '#ed9c1b',
-    inputClearIconColor: '#9C27B0',
+    inputClearIconColor: '#b0272e',
   },
 };
