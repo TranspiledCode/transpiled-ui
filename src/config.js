@@ -30,10 +30,9 @@ const commonStyles = {
   },
 };
 
+// Specific variants only include properties that differ from commonStyles
 const inputSizeVariants = {
   box: {
-    ...commonStyles,
-
     s: {
       ...commonStyles.s,
       labelTop: '-1.3em',
@@ -68,8 +67,6 @@ const inputSizeVariants = {
     },
   },
   bottom: {
-    ...commonStyles,
-
     s: {
       ...commonStyles.s,
       labelTop: '2.6em',
