@@ -7,9 +7,10 @@ import styled from '@emotion/styled';
 const StyledDiv = styled.div`
   display: flex;
   flex-direction: column;
-  /* padding: 40px; */
+  padding: 40px;
   max-width: 400px;
   font-family: 'roboto', sans-serif;
+  font-size: 18px;
 `;
 
 export default {
@@ -37,7 +38,7 @@ export default {
     },
     size: {
       control: 'radio',
-      options: ['s', 'm', 'l', 'xl'],
+      options: ['xs', 's', 'm', 'l', 'xl'],
     },
     clearable: { control: 'boolean' },
     colors: {
