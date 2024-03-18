@@ -84,13 +84,29 @@ const StyledInput = styled.input`
     }
   }
 
-  &:focus + label,
+  /* &:focus + label,
   &:not(:placeholder-shown) + label {
     display: ${({ fieldLabel }) => (fieldLabel ? 'block' : 'none')};
     top: ${({ borderStyle, size }) =>
-      inputSizeVariants[borderStyle][size].labelTop};
+    inputSizeVariants[borderStyle][size].labelTop};
     left: ${({ borderStyle, size }) =>
-      inputSizeVariants[borderStyle][size].labelLeft};
+    inputSizeVariants[borderStyle][size].labelLeft};
+    font-size: ${({ borderStyle, size }) =>
+    inputSizeVariants[borderStyle][size].labelFontSize};
+    color: ${({ colors }) => colors.inputLabelColor};
+  } */
+
+  &:focus + label,
+  &:not(:placeholder-shown) + label {
+    display: ${({ fieldLabel }) => (fieldLabel ? 'block' : 'none')};
+    transform: translateY(
+        ${({ borderStyle, size }) =>
+          inputSizeVariants[borderStyle][size].labelTop}
+      )
+      translateX(
+        ${({ borderStyle, size }) =>
+          inputSizeVariants[borderStyle][size].labelLeft}
+      );
     font-size: ${({ borderStyle, size }) =>
       inputSizeVariants[borderStyle][size].labelFontSize};
     color: ${({ colors }) => colors.inputLabelColor};
