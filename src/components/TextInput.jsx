@@ -1,4 +1,4 @@
-import React, { useState, useMemo } from 'react';
+import React, { useState, useMemo, useRef } from 'react';
 import styled from '@emotion/styled';
 import PropTypes from 'prop-types';
 
@@ -92,6 +92,8 @@ const Input = ({
   const [focused, setFocused] = useState(false);
   const [hasValue, setHasValue] = useState(false);
 
+  const inputRef = useRef(null);
+
   const colors = useMergedColors(theme, colorOverrides);
 
   const handleFocus = () => setFocused(true);
@@ -107,6 +109,7 @@ const Input = ({
   return (
     <Container>
       <StyledInput
+        ref={inputRef}
         onFocus={handleFocus}
         onBlur={handleBlur}
         onChange={handleChange}
@@ -134,6 +137,7 @@ const Input = ({
             onClick={() => {
               setValue('');
               setHasValue(false);
+              inputRef.current.focus();
             }}
           />
         )}
