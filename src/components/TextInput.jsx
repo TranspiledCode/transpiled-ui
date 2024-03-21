@@ -1,29 +1,18 @@
 import React, { useState, useMemo, useRef } from 'react';
-import styled from '@emotion/styled';
 import PropTypes from 'prop-types';
-
+import styled from '@emotion/styled';
 import Icon from './Icon';
+import useMergedColors from '../hooks/useMergedColors';
 
-const defaultColors = {
-  inputBorderColor: '#CFD8DC',
-  inputBorderFocusColor: '#4b8fb1',
-  inputFontColor: '#455A64',
-  inputLabelColor: '#b4b8ba',
-  inputLabelFocusColor: '#4b8fb1',
-  inputBackgroundColor: 'transparent',
-  inputClearIconColor: '#B0BEC5',
-};
+// Style generating functions for Placeholder
+const getBottomPosition = ({ focused, hasValue, fontSize }) =>
+  focused || hasValue ? `calc(-${fontSize}px * 0.8)` : '2px';
 
-const useMergedColors = (theme, customColors) => {
-  return useMemo(
-    () => ({
-      ...defaultColors,
-      ...theme,
-      ...customColors,
-    }),
-    [theme, customColors]
-  );
-};
+const getFontSize = ({ fontSize, focused, hasValue }) =>
+  focused || hasValue ? `calc(${fontSize}px * 0.6)` : `${fontSize}px`;
+
+const getLabelColor = ({ focused, colors }) =>
+  focused ? colors.inputLabelFocusColor : colors.inputLabelColor;
 
 const Container = styled.div`
   position: relative;
@@ -31,9 +20,6 @@ const Container = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
-
-  // Testing purposes
-  font-family: 'roboto', sans-serif;
 `;
 
 const StyledInput = styled.input`
@@ -47,24 +33,20 @@ const StyledInput = styled.input`
   background-color: ${({ colors }) => colors.inputBackgroundColor};
   color: ${({ colors }) => colors.inputFontColor};
   outline: none;
-  transition: border-color 0.3s ease, border-bottom-width 0.3s ease;
+  transition: border-color 0.3s ease;
 
   &:focus {
     border-color: ${({ colors }) => colors.inputBorderFocusColor};
-    /* border-bottom-width: 2px; */
   }
 `;
 
 const Placeholder = styled.label`
   font-family: inherit;
   position: absolute;
-  bottom: ${({ focused, hasValue, fontSize }) =>
-    focused || hasValue ? `calc(-${fontSize}px * 0.8)` : '2px'};
+  bottom: ${(props) => getBottomPosition(props)};
   left: 1px;
-  color: ${({ focused, colors }) =>
-    focused ? colors.inputLabelFocusColor : colors.inputLabelColor};
-  font-size: ${({ fontSize, focused, hasValue }) =>
-    focused || hasValue ? `calc(${fontSize}px * 0.6)` : `${fontSize}px`};
+  color: ${(props) => getLabelColor(props)};
+  font-size: ${(props) => getFontSize(props)};
   transition: bottom 0.3s ease, font-size 0.3s ease;
   pointer-events: none;
 `;
@@ -81,12 +63,15 @@ const ClearableIcon = styled.div`
 `;
 
 const Input = ({
+  id,
+  name,
   placeholder,
   type = 'text',
   fontSize = 14,
   clearable = false,
   colorOverrides = {},
   theme = {},
+  ariaLabel,
 }) => {
   const [value, setValue] = useState('');
   const [focused, setFocused] = useState(false);
@@ -109,6 +94,8 @@ const Input = ({
   return (
     <Container>
       <StyledInput
+        id={id}
+        name={name}
         ref={inputRef}
         onFocus={handleFocus}
         onBlur={handleBlur}
@@ -116,7 +103,7 @@ const Input = ({
         type={type}
         fontSize={fontSize}
         value={value}
-        aria-label={placeholder}
+        aria-label={ariaLabel}
         role='textbox'
         colors={colors}
       />
@@ -128,6 +115,7 @@ const Input = ({
       >
         {placeholder}
       </Placeholder>
+      {/* Replace with a button */}
       <ClearableIcon onMouseDown={(e) => e.preventDefault()} colors={colors}>
         {clearable && value && (
           <Icon
@@ -147,15 +135,20 @@ const Input = ({
 };
 
 Input.propTypes = {
-  placeholder: PropTypes.string.required,
-  type: PropTypes.string.required,
-  fontSize: PropTypes.number.required,
+  id: PropTypes.string,
+  name: PropTypes.string,
+  placeholder: PropTypes.string.isRequired,
+  ariaLabel: PropTypes.string.isRequired,
+  type: PropTypes.string.isRequired,
+  fontSize: PropTypes.number.isRequired,
   clearable: PropTypes.bool,
   colorOverrides: PropTypes.object,
   theme: PropTypes.object,
 };
 
 Input.defaultProps = {
+  id: '',
+  name: '',
   clearable: false,
   colorOverrides: {},
   theme: {},
