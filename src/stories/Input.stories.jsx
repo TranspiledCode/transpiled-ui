@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from '@emotion/styled';
-import TextInput from '../components/TextInput';
+import TextInput from '../components/Input';
 
 const StyledContainer = styled.div`
   display: flex;
