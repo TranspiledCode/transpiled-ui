@@ -4,13 +4,6 @@ import styled from '@emotion/styled';
 import Icon from './Icon';
 import useMergedColors from '../hooks/useMergedColors';
 
-// Style generating functions for Placeholder
-const getBottomPosition = ({ focused, hasValue, fontSize }) =>
-  focused || hasValue ? `calc(-${fontSize}px * 0.8)` : '2px';
-
-const getFontSize = ({ fontSize, focused, hasValue }) =>
-  focused || hasValue ? `calc(${fontSize}px * 0.6)` : `${fontSize}px`;
-
 const getLabelColor = ({ focused, colors }) =>
   focused ? colors.inputLabelFocusColor : colors.inputLabelColor;
 
@@ -20,12 +13,14 @@ const Container = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
+  font-family: inherit;
+  font-size: inherit;
 `;
 
 const StyledInput = styled.input`
   font-family: inherit;
+  font-size: inherit;
   width: 100%;
-  font-size: ${({ fontSize }) => `${fontSize}px`};
   padding: 0 30px 1px 1px;
   border-radius: 0;
   border: none;
@@ -42,13 +37,19 @@ const StyledInput = styled.input`
 
 const Placeholder = styled.label`
   font-family: inherit;
+  font-size: inherit;
   position: absolute;
-  bottom: ${(props) => getBottomPosition(props)};
+  bottom: 2px;
   left: 1px;
   color: ${(props) => getLabelColor(props)};
-  font-size: ${(props) => getFontSize(props)};
-  transition: bottom 0.3s ease, font-size 0.3s ease;
+  transition: bottom 0.3s ease, font-size 0.3s ease, color 0.3s ease;
   pointer-events: none;
+
+  &[data-focused='true'],
+  &[data-has-value='true'] {
+    bottom: calc(-1em * 1.3);
+    font-size: calc(1em * 0.6);
+  }
 `;
 
 const ClearableIcon = styled.div`
@@ -67,11 +68,12 @@ const Input = ({
   name,
   placeholder,
   type = 'text',
-  fontSize = 14,
+  fontSize,
   clearable = false,
   colorOverrides = {},
   theme = {},
   ariaLabel,
+  className,
 }) => {
   const [value, setValue] = useState('');
   const [focused, setFocused] = useState(false);
@@ -92,7 +94,7 @@ const Input = ({
   };
 
   return (
-    <Container>
+    <Container className={className}>
       <StyledInput
         id={id}
         name={name}
@@ -108,9 +110,8 @@ const Input = ({
         colors={colors}
       />
       <Placeholder
-        focused={focused}
-        hasValue={hasValue}
-        fontSize={fontSize}
+        data-focused={focused.toString()}
+        data-has-value={hasValue.toString()}
         colors={colors}
       >
         {placeholder}
@@ -140,7 +141,7 @@ Input.propTypes = {
   placeholder: PropTypes.string.isRequired,
   ariaLabel: PropTypes.string.isRequired,
   type: PropTypes.string.isRequired,
-  fontSize: PropTypes.number.isRequired,
+  fontSize: PropTypes.number,
   clearable: PropTypes.bool,
   colorOverrides: PropTypes.object,
   theme: PropTypes.object,
