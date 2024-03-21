@@ -84,18 +84,6 @@ const StyledInput = styled.input`
     }
   }
 
-  /* &:focus + label,
-  &:not(:placeholder-shown) + label {
-    display: ${({ fieldLabel }) => (fieldLabel ? 'block' : 'none')};
-    top: ${({ borderStyle, size }) =>
-    inputSizeVariants[borderStyle][size].labelTop};
-    left: ${({ borderStyle, size }) =>
-    inputSizeVariants[borderStyle][size].labelLeft};
-    font-size: ${({ borderStyle, size }) =>
-    inputSizeVariants[borderStyle][size].labelFontSize};
-    color: ${({ colors }) => colors.inputLabelColor};
-  } */
-
   &:focus + label,
   &:not(:placeholder-shown) + label {
     display: ${({ fieldLabel }) => (fieldLabel ? 'block' : 'none')};
@@ -159,13 +147,23 @@ const Input = ({
 }) => {
   const inputRef = useRef(null);
   const [value, setValue] = useState('');
-  const [label, setLabel] = useState(placeholder);
+  const [hasFocus, setHasFocus] = useState(false);
+  const [hasValue, setHasValue] = useState(false);
 
-  // Use merged colors from default, theme, and custom colors prop
-  const inputColors = useMergedColors(theme, colors);
+  const inputColors = useMergedColors(theme, colors); // Assuming useMergedColors hook is defined elsewhere
 
-  const handleChnange = (e) => {
-    setValue(e.target.value);
+  const handleChange = (e) => {
+    const { value: newValue } = e.target;
+    setValue(newValue);
+    setHasValue(newValue.length > 0);
+  };
+
+  const handleFocus = () => {
+    setHasFocus(true);
+  };
+
+  const handleBlur = () => {
+    setHasFocus(false);
   };
 
   return (
@@ -177,35 +175,35 @@ const Input = ({
       <StyledInput
         id={id}
         ref={inputRef}
-        placeholder={label ? '' : placeholder}
+        placeholder={!hasFocus && !hasValue ? placeholder : ''}
         name={name}
         type={type}
         autoComplete={autocomplete || 'off'}
         size={size}
         clearable={clearable}
-        onChange={(e) => {
-          handleChnange(e);
-        }}
+        onChange={handleChange}
+        onFocus={handleFocus}
+        onBlur={handleBlur}
         value={value}
         colors={inputColors}
         borderStyle={borderStyle}
         fieldLabel={fieldLabel}
       />
-      <PlaceholderLabel
-        size={size}
-        htmlFor={id}
-        colors={inputColors}
-        borderStyle={borderStyle}
-      >
-        {placeholder}
-      </PlaceholderLabel>
+      {fieldLabel && (hasFocus || hasValue) && (
+        <PlaceholderLabel
+          size={size}
+          htmlFor={id}
+          colors={inputColors}
+          borderStyle={borderStyle}
+        >
+          {placeholder}
+        </PlaceholderLabel>
+      )}
       <ClearableIcon
         size={size}
         borderStyle={borderStyle}
         colors={inputColors}
-        onMouseDown={(e) => {
-          e.preventDefault();
-        }}
+        onMouseDown={(e) => e.preventDefault()}
       >
         {clearable && value && (
           <Icon
@@ -214,6 +212,8 @@ const Input = ({
             iconName='close'
             onClick={() => {
               setValue('');
+              setHasValue(false);
+              inputRef.current.focus(); // Optionally refocus after clearing
             }}
           />
         )}
