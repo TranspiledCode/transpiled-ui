@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from '@emotion/styled';
-import TextInput from '../components/Input';
+import Input from '../components/Input';
 
 const StyledContainer = styled.div`
   display: flex;
@@ -9,9 +9,13 @@ const StyledContainer = styled.div`
   font-family: 'roboto', sans-serif;
 `;
 
+const StyledInput = styled(Input)`
+  font-size: 18px;
+`;
+
 export default {
-  title: 'Components/TextInput',
-  component: TextInput,
+  title: 'Components/Input',
+  component: Input,
   tags: ['autodocs'],
   argTypes: {
     placeholder: { control: 'text' },
@@ -29,7 +33,7 @@ export default {
 
 const Template = (args) => (
   <StyledContainer>
-    <TextInput {...args} />
+    <StyledInput {...args} />
   </StyledContainer>
 );
 
@@ -39,7 +43,6 @@ Default.args = {
   name: 'username',
   placeholder: 'Username',
   type: 'text',
-  fontSize: 18,
   clearable: true,
   ariaLabel: 'username field',
 };
