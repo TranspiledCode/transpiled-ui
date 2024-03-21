@@ -1,15 +1,17 @@
 import React, { useState, useMemo } from 'react';
 import styled from '@emotion/styled';
+import PropTypes from 'prop-types';
+
 import Icon from './Icon';
 
 const defaultColors = {
-  inputBorderColor: '#CBD2D9',
-  inputBorderFocusColor: '#02c315',
-  inputFontColor: '#1a78c5',
-  inputLabelColor: '#00c6d0',
-  inputLabelFocusColor: '#e90696',
+  inputBorderColor: '#CFD8DC',
+  inputBorderFocusColor: '#4b8fb1',
+  inputFontColor: '#455A64',
+  inputLabelColor: '#b4b8ba',
+  inputLabelFocusColor: '#4b8fb1',
   inputBackgroundColor: 'transparent',
-  inputClearIconColor: '#d307c6',
+  inputClearIconColor: '#B0BEC5',
 };
 
 const useMergedColors = (theme, customColors) => {
@@ -138,6 +140,21 @@ const Input = ({
       </ClearableIcon>
     </Container>
   );
+};
+
+Input.propTypes = {
+  placeholder: PropTypes.string.required,
+  type: PropTypes.string.required,
+  fontSize: PropTypes.number.required,
+  clearable: PropTypes.bool,
+  colorOverrides: PropTypes.object,
+  theme: PropTypes.object,
+};
+
+Input.defaultProps = {
+  clearable: false,
+  colorOverrides: {},
+  theme: {},
 };
 
 export default Input;
