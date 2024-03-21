@@ -68,7 +68,6 @@ const Input = ({
   name,
   placeholder,
   type = 'text',
-  fontSize,
   clearable = false,
   colorOverrides = {},
   theme = {},
@@ -103,7 +102,6 @@ const Input = ({
         onBlur={handleBlur}
         onChange={handleChange}
         type={type}
-        fontSize={fontSize}
         value={value}
         aria-label={ariaLabel}
         role='textbox'
@@ -141,7 +139,6 @@ Input.propTypes = {
   placeholder: PropTypes.string.isRequired,
   ariaLabel: PropTypes.string.isRequired,
   type: PropTypes.string.isRequired,
-  fontSize: PropTypes.number,
   clearable: PropTypes.bool,
   colorOverrides: PropTypes.object,
   theme: PropTypes.object,
