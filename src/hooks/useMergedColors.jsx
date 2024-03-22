@@ -3,7 +3,7 @@ import { useMemo } from 'react';
 const defaultColors = {
   inputBorderColor: '#CFD8DC',
   inputBorderFocusColor: '#4b8fb1',
-  inputFontColor: '#455A64',
+  inputFontColor: '#ff00d0',
   inputLabelColor: '#b4b8ba',
   inputLabelFocusColor: '#4b8fb1',
   inputBackgroundColor: 'transparent',
