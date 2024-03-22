@@ -39,7 +39,7 @@ const Placeholder = styled.label`
   font-family: inherit;
   font-size: inherit;
   position: absolute;
-  bottom: 2px;
+  bottom: 3px;
   left: 1px;
   color: ${(props) => getLabelColor(props)};
   transition: bottom 0.3s ease, font-size 0.3s ease, color 0.3s ease;
